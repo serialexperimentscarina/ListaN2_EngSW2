@@ -4,11 +4,55 @@ import br.com.serialexperimentscarina.listastrings.ListaStrings;
 
 public class Area {
 	
-	public int codigo;
-	public String nome;
-	public String descricao;
-	public ListaStrings subareas = new ListaStrings();
+	private int codigo;
+	private String nome;
+	private String descricao;
+	private ListaStrings subareas = new ListaStrings();
 	
+	public int getCodigo() {
+		return codigo;
+	}
+
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+
+	public ListaStrings getSubareas() {
+		return subareas;
+	}
+
+
+	public void addSubarea(String subarea) throws Exception {
+		this.subareas.addLast(subarea);
+	}
+	
+	public void removeSubarea(ListaStrings subareas) {
+		this.subareas = subareas;
+	}
+
+
 	@Override
 	public String toString() {
 		StringBuffer stringSubareas = new StringBuffer("\"");

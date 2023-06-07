@@ -83,26 +83,26 @@ public class AreaController implements ActionListener, IOperacoes{
 	public void gravar() throws Exception {
 		Area area = new Area();
 		if (!tfCodigoArea.getText().equals("") && tfCodigoArea.getText().matches("[0-9]+")) {
-			area.codigo = Integer.parseInt(tfCodigoArea.getText());
+			area.setCodigo(Integer.parseInt(tfCodigoArea.getText()));
 		} else {
 			JOptionPane.showMessageDialog(null, "Código de área não pode estar vazio e deve ser numérico", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		area.nome = tfNomeArea.getText();
-		area.descricao = taDescArea.getText();
+		area.setNome(tfNomeArea.getText());
+		area.setDescricao(taDescArea.getText());
 		
 		if (!taSubareas.getText().equals("")) {
 			String[] listaSubareas = taSubareas.getText().split(System.getProperty("line.separator"));
 			int numSubareas = listaSubareas.length;
 			for (int i = 0; i < numSubareas; i++) {
-				area.subareas.addFirst(listaSubareas[i]); 
+				area.addSubarea(listaSubareas[i]);
 			}
 		} else {
 			JOptionPane.showMessageDialog(null, "É necessário cadastrar subáreas para a área", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
-		if (!area.nome.equals("") && !area.descricao.equals("")) {
+		if (!area.getNome().equals("") && !area.getDescricao().equals("")) {
 			gravaArea(area.toString());
 			tabelaEspalhamentoArea.adiciona(area);
 			limparBusca();
@@ -170,7 +170,7 @@ public class AreaController implements ActionListener, IOperacoes{
 	@Override
 	public void excluir() throws Exception {
 		Area area = new Area();
-		area.nome = tfAreaBusca.getText();
+		area.setNome(tfAreaBusca.getText());
 		
 		if (tabelaEspalhamentoArea.remove(area)) {
 			JOptionPane.showMessageDialog(null, "Área removida com sucesso");
@@ -198,7 +198,7 @@ public class AreaController implements ActionListener, IOperacoes{
 			String linha = bufferR.readLine();
 			while (linha != null) {
 				String[] vetLinha = linha.split(";");
-				if (!area.nome.equals(vetLinha[2])) {
+				if (!area.getNome().equals(vetLinha[1])) {
 					bufferW.append(linha + System.getProperty("line.separator"));
 					
 				}
@@ -222,9 +222,9 @@ public class AreaController implements ActionListener, IOperacoes{
 	@Override
 	public void buscar() throws Exception {
 		Area area = new Area();
-		area.nome =tfAreaBusca.getText();
+		area.setNome(tfAreaBusca.getText());
 		
-		if (area.nome.equals("")) {
+		if (area.getNome().equals("")) {
 			JOptionPane.showMessageDialog(null, "Nome Inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -232,11 +232,11 @@ public class AreaController implements ActionListener, IOperacoes{
 		area = tabelaEspalhamentoArea.busca(area);
 		if (area != null) {
 			String stringSubareas = "; Subáreas: ";
-			int numSubareas = area.subareas.size();
+			int numSubareas = area.getSubareas().size();
 			for (int i = 0; i < numSubareas; i++) {
-				stringSubareas += (area.subareas.get(i) + ", ");
+				stringSubareas += (area.getSubareas().get(i) + ", ");
 			}
-			taAreaLista.setText("Código: " + area.codigo + "; Área: " + area.nome + "; Descrição: " + area.descricao + stringSubareas.substring(0, stringSubareas.length() - 2));
+			taAreaLista.setText("Código: " + area.getCodigo() + "; Área: " + area.getNome() + "; Descrição: " + area.getDescricao() + stringSubareas.substring(0, stringSubareas.length() - 2));
 		} else {
 			JOptionPane.showMessageDialog(null, "Área não encontrada!", "ERRO!", JOptionPane.ERROR_MESSAGE);
 		}
@@ -260,14 +260,14 @@ public class AreaController implements ActionListener, IOperacoes{
 			while (linha != null) {
 				String[] vetLinha = linha.split(";(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 				Area area = new Area();
-				area.codigo = Integer.parseInt(vetLinha[0]);
-				area.nome = vetLinha[1];
-				area.descricao = vetLinha[2];
+				area.setCodigo(Integer.parseInt(vetLinha[0]));
+				area.setNome(vetLinha[1]);
+				area.setDescricao(vetLinha[2]);
 				
 				String[] listaDeSubareas = vetLinha[3].substring(1, vetLinha[3].length() - 1).split(";");
 				int numSubareas = listaDeSubareas.length;
 				for (int i = 0; i < numSubareas; i++) {
-					area.subareas.addFirst(listaDeSubareas[i]); 
+					area.addSubarea(listaDeSubareas[i]);
 				}
 				tabelaEspalhamentoArea.adiciona(area);
 				linha = buffer.readLine();
