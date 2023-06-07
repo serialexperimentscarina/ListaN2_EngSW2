@@ -105,7 +105,8 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 	private void adicionar() throws Exception {
 		Aluno aluno = new Aluno();
 		if (tfBuscaIntegrante.getText().toString().equals("") || !tfBuscaIntegrante.getText().toString().matches("[0-9]+")) {
-			JOptionPane.showMessageDialog(null, "Número de RA do aluno inválido");
+			JOptionPane.showMessageDialog(null, "Número de RA do aluno inválido",
+					"ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
@@ -118,7 +119,8 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 				String integrantes = lblBuscaIntegrante.getText().toString();
 				
 				if(integrantes.contains(aluno.getNome())) {
-					JOptionPane.showMessageDialog(null, "Aluno já está adicionado neste trabalho.");
+					JOptionPane.showMessageDialog(null, "Aluno já está adicionado neste trabalho.",
+							"ERRO!", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 				
@@ -131,16 +133,19 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 				JOptionPane.showMessageDialog(null, "Aluno adicionado com sucesso.");
 				tfBuscaIntegrante.setText("");
 			} else {
-				JOptionPane.showMessageDialog(null, "Nenhum aluno encontrado com esse RA.");
+				JOptionPane.showMessageDialog(null, "Nenhum aluno encontrado com esse RA.",
+						"ERRO!", JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Grupo está com o limite de integrantes!");
+			JOptionPane.showMessageDialog(null, "Grupo está com o limite de integrantes!",
+					"ERRO!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	private void remover() throws Exception {
 		if (tfBuscaIntegrante.getText().toString().equals("") || !tfBuscaIntegrante.getText().toString().matches("[0-9]+")) {
-			JOptionPane.showMessageDialog(null, "Número de RA do aluno inválido");
+			JOptionPane.showMessageDialog(null, "Número de RA do aluno inválido",
+					"ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
@@ -166,7 +171,8 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 			}
 			lblBuscaIntegrante.setText(listaDeNomesAtualizada.toString());
 		} else {
-			JOptionPane.showMessageDialog(null, "Aluno não encontrado.");
+			JOptionPane.showMessageDialog(null, "Aluno não encontrado.",
+					"ERRO!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	@Override
@@ -319,7 +325,8 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 			numIntegrantes = 0;
 			JOptionPane.showMessageDialog(null, "Trabalho gravado com sucesso!");
 		} else {
-			JOptionPane.showMessageDialog(null, "Quantidade de integrantes inválida! Mínimo: 2");
+			JOptionPane.showMessageDialog(null, "Quantidade de integrantes inválida! Mínimo: 1",
+					"ERRO!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

@@ -203,7 +203,8 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 			lblOrientacaoTrabalho.setText(String.valueOf(trabalho.getCodigo()));
 			tfTrabalhoOrientacao.setText("");
 		} else {
-			JOptionPane.showMessageDialog(null, "Trabalho com o código informado não encontrado no sistema.");
+			JOptionPane.showMessageDialog(null, "Trabalho com o código informado não encontrado no sistema.",
+					"ERRO!", JOptionPane.ERROR_MESSAGE);
 
 		}
 	}
@@ -217,10 +218,12 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 				Orientacao orientacaoMaisRecente = (Orientacao) trabalho.getOrientacoes().top();
 				taOrientacaoLista.setText("Trabalho #" + trabalho.getCodigo() + " (" + orientacaoMaisRecente.getDia() + "/" + orientacaoMaisRecente.getMes() + "/" + orientacaoMaisRecente.getAno() + ") - " + orientacaoMaisRecente.getPontos() + System.getProperty("line.separator"));
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Trabalho com o código informado não possui encontros");
+				JOptionPane.showMessageDialog(null, "Trabalho com o código informado não possui encontros",
+						"ERRO!", JOptionPane.ERROR_MESSAGE);
 			}
 		} else {
-			JOptionPane.showMessageDialog(null, "Trabalho com o código informado não encontrado no sistema.");
+			JOptionPane.showMessageDialog(null, "Trabalho com o código informado não encontrado no sistema.",
+					"ERRO!", JOptionPane.ERROR_MESSAGE);
 
 		}
 	}
