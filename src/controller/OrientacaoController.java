@@ -114,6 +114,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		tfAnoOrientacao.setText("");
 		taPontosOrientacao.setText("");
 		tfTrabalhoOrientacao.setText("");
+		lblOrientacaoTrabalho.setText("");
 		JOptionPane.showMessageDialog(null, "Orientação adicionada com sucesso!");
 	}
 
@@ -198,6 +199,11 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 
 
 	private void adicionar() throws Exception {
+		if (tfTrabalhoOrientacao.getText().equals("") || !tfTrabalhoOrientacao.getText().matches("[0-9]+")) {
+			JOptionPane.showMessageDialog(null, "Código de trabalho inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
 		Trabalho trabalho = new Trabalho();
 		trabalho.setCodigo(Integer.parseInt(tfTrabalhoOrientacao.getText()));
 		trabalho = TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho);
@@ -212,6 +218,11 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 	}
 	@Override
 	public void buscar() throws Exception {
+		if (tfOrientacaoBusca.getText().equals("") || !tfOrientacaoBusca.getText().matches("[0-9]+")) {
+			JOptionPane.showMessageDialog(null, "Código de trabalho inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
 		Trabalho trabalho = new Trabalho();
 		trabalho.setCodigo(Integer.parseInt(tfOrientacaoBusca.getText()));
 		trabalho = TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho);
