@@ -291,14 +291,13 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			// Trocar aqui
-			trabalho.area = area.nome;
+			trabalho.setArea(area.nome);
 			
 			boolean subareaExiste = false;
 			int totalSubareas = area.subareas.size();
 			
 			for (int i = 0; i < totalSubareas; i++) {
-				// Trocar aqui
+
 				if (area.subareas.get(i).equals(trabalho.getSubarea())) {
 					subareaExiste = true;
 					break;

@@ -30,8 +30,8 @@ public class TabelaGrupoSubareaController {
 		String trabalhos = "";
 		for (int i = 0; i < tamanho; i++) {
 			Trabalho trbl = (Trabalho) l.get(i);
-			if(trabalho.subarea.equals(trbl.subarea)) {
-				trabalhos += ("Código: " + trbl.codigo + ", Tipo: " + trbl.tipo + ", Tema: " + trbl.tema + ", Área:" + trbl.area + ", Subárea: " + trbl.subarea + ", Integrantes: " + trbl.integrantes + System.getProperty("line.separator"));
+			if(trabalho.getSubarea().equals(trbl.getSubarea())) {
+				trabalhos += ("Código: " + trbl.getCodigo() + ", Tipo: " + trbl.getTipo() + ", Tema: " + trbl.getTema() + ", Área:" + trbl.getArea() + ", Subárea: " + trbl.getSubarea() + ", Integrantes: " + trbl.getIntegrantes() + System.getProperty("line.separator"));
 			}
 		}
 		

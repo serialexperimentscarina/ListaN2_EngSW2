@@ -29,7 +29,7 @@ public class TabelaGrupoCodigoController {
 		
 		for (int i = 0; i < tamanho; i++) {
 			Trabalho trbl = (Trabalho) l.get(i);
-			if(trabalho.codigo == trbl.codigo) {
+			if(trabalho.getCodigo() == trbl.getCodigo()) {
 				return trbl;
 			}
 		}
@@ -43,7 +43,7 @@ public class TabelaGrupoCodigoController {
 		
 		for (int i = 0; i < tamanho; i++) {
 			Trabalho trbl = (Trabalho) l.get(i);
-			if(trbl.codigo == trabalho.codigo) {
+			if(trbl.getCodigo() == trabalho.getCodigo()) {
 				l.remove(i);
 				return true;
 			}
@@ -59,7 +59,7 @@ public class TabelaGrupoCodigoController {
 			
 			for (int j = 0; j < tamanho; j++) {
 				Trabalho trabalho = (Trabalho) l.get(j);
-				trabalhos.append("Código: " + trabalho.codigo + ", Tipo: " + trabalho.tipo + ", Tema: " + trabalho.tema + ", Área:" + trabalho.area + ", Subárea: " + trabalho.subarea + ", Integrantes: " + trabalho.integrantes + System.getProperty("line.separator"));
+				trabalhos.append("Código: " + trabalho.getCodigo() + ", Tipo: " + trabalho.getTipo() + ", Tema: " + trabalho.getTema() + ", Área:" + trabalho.getArea() + ", Subárea: " + trabalho.getSubarea() + ", Integrantes: " + trabalho.getIntegrantes() + System.getProperty("line.separator"));
 			}
 		}
 		return trabalhos.toString();

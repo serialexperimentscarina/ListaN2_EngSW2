@@ -2,10 +2,10 @@ package model;
 
 public class Orientacao {
 	
-	public int dia;
-	public int mes;
-	public int ano;
-	public String pontos;
+	private int dia;
+	private int mes;
+	private int ano;
+	private String pontos;
 	
 	@Override
 	public String toString() {

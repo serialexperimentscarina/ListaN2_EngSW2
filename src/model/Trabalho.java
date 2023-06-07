@@ -4,12 +4,12 @@ import br.com.serialexperimentscarina.pilhaobject.PilhaObject;
 
 public class Trabalho {
 	
-	public int codigo;
-	public String tipo;
-	public String tema;
-	public String area;
-	public String subarea;
-	public String integrantes;
+	private int codigo;
+	private String tipo;
+	private String tema;
+	private String area;
+	private String subarea;
+	private String integrantes;
 	
 	public PilhaObject orientacoes = new PilhaObject();
 	
