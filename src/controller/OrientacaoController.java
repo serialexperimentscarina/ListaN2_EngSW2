@@ -42,7 +42,6 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		
 		try {
 			InicializaPilhas();
-			limparBusca();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -172,11 +171,14 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 			PrintWriter pWriter = new PrintWriter(fWriter);
 			
 			String linha = bufferR.readLine();
-			while (linha != null) {
+			boolean removido = false;
+			while (linha != null && !removido) {
 				String[] vetLinha = linha.split(";");
 				if (codigo != Integer.parseInt(vetLinha[4]) || orientacao.getDia() != Integer.parseInt(vetLinha[0]) || orientacao.getMes() != Integer.parseInt(vetLinha[1]) || orientacao.getAno() != Integer.parseInt(vetLinha[2])) {
 					bufferW.append(linha + System.getProperty("line.separator"));
-				} 
+				} else {
+					removido = true;
+				}
 				linha = bufferR.readLine();
 			}
 			
@@ -258,6 +260,8 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 			isr.close();
 			fis.close();
 		}
+
+		limparBusca();
 	}
 	
 

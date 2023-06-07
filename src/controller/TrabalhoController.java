@@ -56,7 +56,6 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 		tabelaEspalhamentoGrupoSubarea = new TabelaGrupoSubareaController();
 		try {
 			populaTabelas();
-			limparBusca();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro durante a execução do programa", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
@@ -460,6 +459,8 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 			isr.close();
 			fis.close();
 		}
+		
+		limparBusca();
 	}
 
 	
