@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import br.com.serialexperimentscarina.listaobject.ListaObject;
 import model.Aluno;
 
-public class AlunoController implements ActionListener {
+public class AlunoController implements ActionListener, IOperacoes {
 
 	private JTextField tfAlunoNome;
 	private JTextField tfAlunoRa;
@@ -49,17 +49,17 @@ public class AlunoController implements ActionListener {
 				case "Gravar":
 					gravar();	
 					break;
+				case "Excluir":
+					excluir();	
+					break;
 				case "Buscar":
 					buscar();	
-					break;
-				case "Upload por CSV":
-					upload();	
 					break;
 				case "Limpar Busca":
 					limparBusca();	
 					break;
-				case "Excluir":
-					excluir();	
+				case "Upload por CSV":
+					upload();	
 					break;
 				default:
 					break;
@@ -71,7 +71,8 @@ public class AlunoController implements ActionListener {
 		
 	}
 
-	private void gravar() throws Exception {
+	@Override
+	public void gravar() throws Exception {
 		Aluno aluno = new Aluno();
 		aluno.nome = tfAlunoNome.getText();
 		aluno.ra = tfAlunoRa.getText();
@@ -109,68 +110,9 @@ public class AlunoController implements ActionListener {
 		fw.close();
 		
 	}
-
-	private void buscar() throws Exception {
-		Aluno aluno = new Aluno();
-		aluno.ra = tfAlunoBusca.getText();
-		
-		if (aluno.ra.equals("") || !aluno.ra.matches("[0-9]+")) {
-			JOptionPane.showMessageDialog(null, "RA Inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		
-		aluno = tabelaEspalhamentoAluno.busca(aluno);
-		if (aluno != null) {
-			taAlunoLista.setText("Nome: " + aluno.nome + "; RA: " + aluno.ra);
-		} else {
-			JOptionPane.showMessageDialog(null, "Aluno não encontrado!", "ERRO!", JOptionPane.ERROR_MESSAGE);
-		}
-	}
 	
-	private void upload() throws Exception {
-		UploadController uploadCrtl = new UploadController();
-		File arquivo = uploadCrtl.uploadArquivo();
-		ListaObject listaAluno = new ListaObject();
-		
-		if (arquivo != null) {
-			FileInputStream fInStr = new FileInputStream(arquivo);
-			InputStreamReader InStrReader = new InputStreamReader(fInStr);
-			BufferedReader bufferReader = new BufferedReader(InStrReader);
-			String linha = bufferReader.readLine();
-			
-			while (linha != null) {
-				String[] vetLinha = linha.split(";");
-				
-				// Checa se todos os campos do CSV estão corretos
-				if (vetLinha.length == 2 && !vetLinha[0].equals("") && (!vetLinha[1].equals("") && vetLinha[1].matches("[0-9]+"))) {
-					Aluno aluno = new Aluno();
-					aluno.nome = vetLinha[0];
-					aluno.ra = vetLinha[1];
-					listaAluno.addFirst(aluno);
-				} else {
-					JOptionPane.showMessageDialog(null, "Um ou mais campos inválidos passados por CSV, verifique seu arquivo e tente novamente", "ERRO!", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-				linha = bufferReader.readLine();
-			}
-			bufferReader.close();
-			InStrReader.close();
-			fInStr.close();
-			
-			//Se todos os alunos passados forem válidos, adiciona eles ao sistema
-			while (!listaAluno.isEmpty()) {
-				Aluno aluno = (Aluno) listaAluno.get(0);
-				gravaAluno(aluno.toString());
-				tabelaEspalhamentoAluno.adiciona(aluno);
-				listaAluno.removeFirst();
-			}
-			
-			JOptionPane.showMessageDialog(null, "Upload feito com sucesso", "Upload concluído", JOptionPane.PLAIN_MESSAGE);
-			limparBusca();
-		}
-	}
-	
-	private void excluir() throws Exception {
+	@Override
+	public void excluir() throws Exception {
 		Aluno aluno = new Aluno();
 		aluno.ra = tfAlunoBusca.getText();
 		
@@ -226,7 +168,26 @@ public class AlunoController implements ActionListener {
 		}
 	}
 	
-	private void limparBusca() throws Exception {
+	@Override
+	public void buscar() throws Exception {
+		Aluno aluno = new Aluno();
+		aluno.ra = tfAlunoBusca.getText();
+		
+		if (aluno.ra.equals("") || !aluno.ra.matches("[0-9]+")) {
+			JOptionPane.showMessageDialog(null, "RA Inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		aluno = tabelaEspalhamentoAluno.busca(aluno);
+		if (aluno != null) {
+			taAlunoLista.setText("Nome: " + aluno.nome + "; RA: " + aluno.ra);
+		} else {
+			JOptionPane.showMessageDialog(null, "Aluno não encontrado!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	@Override
+	public void limparBusca() throws Exception {
 		taAlunoLista.setText(tabelaEspalhamentoAluno.lista());
 	}
 	
@@ -253,6 +214,49 @@ public class AlunoController implements ActionListener {
 			fis.close();
 		}
 		limparBusca();
+	}
+	
+	private void upload() throws Exception {
+		UploadController uploadCrtl = new UploadController();
+		File arquivo = uploadCrtl.uploadArquivo();
+		ListaObject listaAluno = new ListaObject();
+		
+		if (arquivo != null) {
+			FileInputStream fInStr = new FileInputStream(arquivo);
+			InputStreamReader InStrReader = new InputStreamReader(fInStr);
+			BufferedReader bufferReader = new BufferedReader(InStrReader);
+			String linha = bufferReader.readLine();
+			
+			while (linha != null) {
+				String[] vetLinha = linha.split(";");
+				
+				// Checa se todos os campos do CSV estão corretos
+				if (vetLinha.length == 2 && !vetLinha[0].equals("") && (!vetLinha[1].equals("") && vetLinha[1].matches("[0-9]+"))) {
+					Aluno aluno = new Aluno();
+					aluno.nome = vetLinha[0];
+					aluno.ra = vetLinha[1];
+					listaAluno.addFirst(aluno);
+				} else {
+					JOptionPane.showMessageDialog(null, "Um ou mais campos inválidos passados por CSV, verifique seu arquivo e tente novamente", "ERRO!", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				linha = bufferReader.readLine();
+			}
+			bufferReader.close();
+			InStrReader.close();
+			fInStr.close();
+			
+			//Se todos os alunos passados forem válidos, adiciona eles ao sistema
+			while (!listaAluno.isEmpty()) {
+				Aluno aluno = (Aluno) listaAluno.get(0);
+				gravaAluno(aluno.toString());
+				tabelaEspalhamentoAluno.adiciona(aluno);
+				listaAluno.removeFirst();
+			}
+			
+			JOptionPane.showMessageDialog(null, "Upload feito com sucesso", "Upload concluído", JOptionPane.PLAIN_MESSAGE);
+			limparBusca();
+		}
 	}
 	
 	
