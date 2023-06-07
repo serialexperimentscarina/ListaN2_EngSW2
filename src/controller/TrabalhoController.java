@@ -19,7 +19,7 @@ import model.Aluno;
 import model.Area;
 import model.Trabalho;
 
-public class TrabalhoController implements ActionListener, IOperacoes {
+public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 
 	private JTextField tfTrabalhoCodigo;
 	private JTextField tfTrabalhoTipo;
@@ -342,8 +342,8 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 		fw.close();
 
 	}
-
-	private void upload() throws Exception {
+	@Override
+	public void upload() throws Exception {
 		UploadController uploadCrtl = new UploadController();
 		File arquivo = uploadCrtl.uploadArquivo();
 		ListaObject listaTrabalho = new ListaObject();

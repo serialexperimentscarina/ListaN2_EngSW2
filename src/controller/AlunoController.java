@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import br.com.serialexperimentscarina.listaobject.ListaObject;
 import model.Aluno;
 
-public class AlunoController implements ActionListener, IOperacoes {
+public class AlunoController implements ActionListener, IOperacoes, IUpload {
 
 	private JTextField tfAlunoNome;
 	private JTextField tfAlunoRa;
@@ -215,8 +215,8 @@ public class AlunoController implements ActionListener, IOperacoes {
 		}
 		limparBusca();
 	}
-	
-	private void upload() throws Exception {
+	@Override
+	public void upload() throws Exception {
 		UploadController uploadCrtl = new UploadController();
 		File arquivo = uploadCrtl.uploadArquivo();
 		ListaObject listaAluno = new ListaObject();
