@@ -33,6 +33,7 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 	
 	public static TabelaGrupoCodigoController tabelaEspalhamentoGrupoCodigo;
 	public static TabelaGrupoSubareaController tabelaEspalhamentoGrupoSubarea;
+	public static String cmd = "";
 
 	private static int numIntegrantes;
 
@@ -55,7 +56,7 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 		tabelaEspalhamentoGrupoSubarea = new TabelaGrupoSubareaController();
 		try {
 			populaTabelas();
-			gerarListTrabalho();
+			limparBusca();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Ocorreu um erro durante a execução do programa", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
@@ -65,7 +66,7 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String cmd = e.getActionCommand();
+		cmd = e.getActionCommand();
 		try {
 			switch (cmd) {
 				case "Gravar":
@@ -75,16 +76,16 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 					excluir();
 					break;
 				case "Buscar por código":
-					buscarCodigo();	
+					buscar();	
 					break;
 				case "Buscar por subárea":
-					buscarArea();	
+					buscar();	
 					break;
 				case "Upload por CSV":
 					upload();	
 					break;
 				case "Limpar Busca":
-					gerarListTrabalho();
+					limparBusca();
 					break;
 				case "Adicionar":
 					adicionar();	
@@ -221,8 +222,17 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 			
 			arq.delete();
 			novoArq.renameTo(arq);
-			gerarListTrabalho();
+			limparBusca();
 		}
+	}
+	
+	@Override
+	public void buscar() throws Exception {
+		if (cmd.equals("Buscar por código")) {
+			buscarCodigo();
+		} else if (cmd.equals("Buscar por subárea")) {
+			buscarArea();
+		} 
 	}
 
 
@@ -336,10 +346,6 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 
 	}
 
-	public void gerarListTrabalho() throws Exception {
-		taTrabalhoLista.setText(tabelaEspalhamentoGrupoCodigo.lista());
-	}
-
 	private void upload() throws Exception {
 		UploadController uploadCrtl = new UploadController();
 		File arquivo = uploadCrtl.uploadArquivo();
@@ -419,7 +425,7 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 				listaTrabalho.removeFirst();
 			}
 
-			gerarListTrabalho();
+			limparBusca();
 			JOptionPane.showMessageDialog(null, "Upload feito com sucesso", "Upload concluído",
 					JOptionPane.PLAIN_MESSAGE);
 
@@ -455,15 +461,11 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 		}
 	}
 
-	@Override
-	public void buscar() throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void limparBusca() throws Exception {
-		// TODO Auto-generated method stub
-		
+		taTrabalhoLista.setText(tabelaEspalhamentoGrupoCodigo.lista());
 	}
+	
 }

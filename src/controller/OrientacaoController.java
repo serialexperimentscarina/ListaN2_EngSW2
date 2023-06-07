@@ -42,7 +42,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		
 		try {
 			InicializaPilhas();
-			atualizaLista();
+			limparBusca();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,7 +66,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 					adicionar();
 					break;
 				case "Limpar Busca":
-					atualizaLista();
+					limparBusca();
 					break;
 				default:
 					break;
@@ -109,7 +109,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho).orientacoes.push(orientacao);
 		
 		gravaOrientacao(orientacao.toString() + ";" + trabalho.getCodigo());
-		atualizaLista();
+		limparBusca();
 		tfDiaOrientacao.setText("");
 		tfMesOrientacao.setText("");
 		tfAnoOrientacao.setText("");
@@ -190,7 +190,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 			
 			arq.delete();
 			novoArq.renameTo(arq);
-			atualizaLista();
+			limparBusca();
 		}
 	}
 
@@ -257,7 +257,9 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		}
 	}
 	
-	private void atualizaLista() throws Exception {
+
+	@Override
+	public void limparBusca() throws Exception {
 		String path = (System.getProperty("user.home") + File.separator + "SistemaTCC");
 		File arq = new File(path, "orientacoes.csv");
 
@@ -277,11 +279,6 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 			isr.close();
 			fis.close();
 		}
-	}
-
-	@Override
-	public void limparBusca() throws Exception {
-		// TODO Auto-generated method stub
 		
 	}
 }
