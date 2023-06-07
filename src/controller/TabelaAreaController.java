@@ -29,7 +29,7 @@ ListaObject[] tabelaDeEspalhamento;
 		
 		for (int i = 0; i < tamanho; i++) {
 			Area ar = (Area) l.get(i);
-			if(ar.nome.equals(area.nome)) {
+			if(ar.getNome().equals(area.getNome())) {
 				return ar;
 			}
 		}
@@ -43,7 +43,7 @@ ListaObject[] tabelaDeEspalhamento;
 		
 		for (int i = 0; i < tamanho; i++) {
 			Area ar = (Area) l.get(i);
-			if(ar.nome.equals(area.nome)) {
+			if(ar.getNome().equals(area.getNome())) {
 				l.remove(i);
 				return true;
 			}
@@ -60,11 +60,11 @@ ListaObject[] tabelaDeEspalhamento;
 			for (int j = 0; j < tamanho; j++) {
 				Area area = (Area) l.get(j);
 				String stringSubareas = "; Subáreas: ";
-				int numSubareas = area.subareas.size();
+				int numSubareas = area.getSubareas().size();
 				for (int k = 0; k < numSubareas; k++) {
-					stringSubareas += (area.subareas.get(k) + ", ");
+					stringSubareas += (area.getSubareas().get(k) + ", ");
 				}
-				areas.append("Código: " + area.codigo + "; Área: " + area.nome + "; Descrição: " + area.descricao + stringSubareas.substring(0, stringSubareas.length() - 2) + System.getProperty("line.separator"));
+				areas.append("Código: " + area.getCodigo() + "; Área: " + area.getNome() + "; Descrição: " + area.getDescricao() + stringSubareas.substring(0, stringSubareas.length() - 2) + System.getProperty("line.separator"));
 			}
 		}
 		return areas.toString();
