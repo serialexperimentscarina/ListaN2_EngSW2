@@ -1,7 +1,5 @@
 package controller;
 
-import javax.swing.JOptionPane;
-
 import br.com.serialexperimentscarina.listaobject.ListaObject;
 import model.Aluno;
 
