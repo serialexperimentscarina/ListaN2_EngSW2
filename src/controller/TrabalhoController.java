@@ -19,7 +19,7 @@ import model.Aluno;
 import model.Area;
 import model.Trabalho;
 
-public class TrabalhoController implements ActionListener {
+public class TrabalhoController implements ActionListener, IOperacoes {
 
 	private JTextField tfTrabalhoCodigo;
 	private JTextField tfTrabalhoTipo;
@@ -168,15 +168,15 @@ public class TrabalhoController implements ActionListener {
 			JOptionPane.showMessageDialog(null, "Aluno não encontrado.");
 		}
 	}
-	
-	private void excluir() throws Exception {
+	@Override
+	public void excluir() throws Exception {
 		if (tfTrabalhoBusca.getText().equals("") || !tfTrabalhoBusca.getText().matches("[0-9]+")) {
 			JOptionPane.showMessageDialog(null, "Código inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
 		Trabalho trabalho = new Trabalho();
-		trabalho.codigo = Integer.parseInt(tfTrabalhoBusca.getText());
+		trabalho.setCodigo(Integer.parseInt(tfTrabalhoBusca.getText()));
 		
 		if (tabelaEspalhamentoGrupoCodigo.remove(trabalho)) {
 			JOptionPane.showMessageDialog(null, "Trabalho removido com sucesso");
@@ -204,7 +204,7 @@ public class TrabalhoController implements ActionListener {
 			String linha = bufferR.readLine();
 			while (linha != null) {
 				String[] vetLinha = linha.split(";");
-				if (trabalho.codigo != Integer.parseInt(vetLinha[0])) {
+				if (trabalho.getCodigo() != Integer.parseInt(vetLinha[0])) {
 					bufferW.append(linha + System.getProperty("line.separator"));
 					
 				}
@@ -233,11 +233,11 @@ public class TrabalhoController implements ActionListener {
 		}
 		
 		Trabalho trabalho = new Trabalho();
-		trabalho.codigo = Integer.parseInt(tfTrabalhoBusca.getText());
+		trabalho.setCodigo(Integer.parseInt(tfTrabalhoBusca.getText()));
 		
 		trabalho = tabelaEspalhamentoGrupoCodigo.busca(trabalho);
 		if (trabalho != null) {
-			taTrabalhoLista.setText("Código: " + trabalho.codigo + ", Tipo: " + trabalho.tipo + ", Tema: " + trabalho.tema + ", Área:" + trabalho.area + ", Subárea: " + trabalho.subarea + ", Integrantes: " + trabalho.integrantes);
+			taTrabalhoLista.setText("Código: " + trabalho.getCodigo() + ", Tipo: " + trabalho.getTipo() + ", Tema: " + trabalho.getTema() + ", Área:" + trabalho.getArea() + ", Subárea: " + trabalho.getSubarea() + ", Integrantes: " + trabalho.getIntegrantes());
 		} else {
 			JOptionPane.showMessageDialog(null, "Trabalho não encontrado!", "ERRO!", JOptionPane.ERROR_MESSAGE);
 		}
@@ -246,7 +246,7 @@ public class TrabalhoController implements ActionListener {
 	
 	private void buscarArea() throws Exception {
 		Trabalho trabalho = new Trabalho();
-		trabalho.subarea = tfTrabalhoBusca.getText();
+		trabalho.setSubarea(tfTrabalhoBusca.getText());
 		
 		String trabalhos = tabelaEspalhamentoGrupoSubarea.busca(trabalho);
 		if (!trabalhos.equals("")) {
@@ -256,21 +256,22 @@ public class TrabalhoController implements ActionListener {
 		}
 		
 	}
-	
-	private void gravar() throws Exception {
+	@Override
+	public void gravar() throws Exception {
 		if (numIntegrantes >= 1) {
 			Trabalho trabalho = new Trabalho();
-			trabalho.codigo = Integer.parseInt(tfTrabalhoCodigo.getText());
-			trabalho.tipo = tfTrabalhoTipo.getText();
-			trabalho.tema = tfTrabalhoTema.getText();
-			trabalho.subarea = tfTrabalhoSubarea.getText();
-			trabalho.integrantes = lblBuscaIntegrante.getText();
+			trabalho.setCodigo(Integer.parseInt(tfTrabalhoCodigo.getText()));
+			trabalho.setTipo(tfTrabalhoTipo.getText());
+			trabalho.setTema(tfTrabalhoTema.getText());
+			trabalho.setSubarea(tfTrabalhoSubarea.getText());
+			trabalho.setIntegrantes(lblBuscaIntegrante.getText());
 			
-			if (trabalho.tema.equals("") || trabalho.tipo.equals("")) {
+			if (trabalho.getTema().equals("") || trabalho.getTipo().equals("")) {
 				JOptionPane.showMessageDialog(null, "Um ou mais campos vazios ou possuem caracteres inválidos", "ERRO!",
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			// Trocar aqui
 			Area area = new Area();
 			area.nome = tfTrabalhoArea.getText();
 			area = AreaController.tabelaEspalhamentoArea.busca(area);
@@ -280,13 +281,15 @@ public class TrabalhoController implements ActionListener {
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
+			// Trocar aqui
 			trabalho.area = area.nome;
 			
 			boolean subareaExiste = false;
 			int totalSubareas = area.subareas.size();
 			
 			for (int i = 0; i < totalSubareas; i++) {
-				if (area.subareas.get(i).equals(trabalho.subarea)) {
+				// Trocar aqui
+				if (area.subareas.get(i).equals(trabalho.getSubarea())) {
 					subareaExiste = true;
 					break;
 				}
@@ -353,10 +356,10 @@ public class TrabalhoController implements ActionListener {
 				if (vetLinha[0].matches("[0-9]+") && (!vetLinha[1].equals("")) && (!vetLinha[2].equals(""))
 						&& (!vetLinha[3].equals("")) && (!vetLinha[4].equals(""))) {
 					Trabalho trabalho = new Trabalho();
-					trabalho.codigo = Integer.parseInt(vetLinha[0]);
-					trabalho.tipo = vetLinha[1];
-					trabalho.tema = vetLinha[2];
-					
+					trabalho.setCodigo(Integer.parseInt(vetLinha[0]));
+					trabalho.setTipo(vetLinha[1]);
+					trabalho.setTema(vetLinha[2]);
+					// Trocar aqui
 					Area area = new Area();
 					area.nome = vetLinha[3];
 					area = AreaController.tabelaEspalhamentoArea.busca(area);
@@ -367,14 +370,16 @@ public class TrabalhoController implements ActionListener {
 						return;
 					}
 					
-					trabalho.area = vetLinha[3];
-					trabalho.subarea = vetLinha[4];
+					trabalho.setArea(vetLinha[3]);
+					trabalho.setSubarea(vetLinha[4]);
 					
 					boolean subareaExiste = false;
+					// Trocar aqui
 					int totalSubareas = area.subareas.size();
 					
 					for (int i = 0; i < totalSubareas; i++) {
-						if (area.subareas.get(i).equals(trabalho.subarea)) {
+						// Trocar aqui
+						if (area.subareas.get(i).equals(trabalho.getSubarea())) {
 							subareaExiste = true;
 							break;
 						}
@@ -391,7 +396,7 @@ public class TrabalhoController implements ActionListener {
 								JOptionPane.ERROR_MESSAGE);
 						return;
 					}
-					trabalho.integrantes = vetLinha[5];
+					trabalho.setIntegrantes(vetLinha[5]);
 					
 					listaTrabalho.addFirst(trabalho);
 				} else {
@@ -434,12 +439,12 @@ public class TrabalhoController implements ActionListener {
 			while (linha != null) {
 				String[] vetLinha = linha.split(";");
 				Trabalho trabalho = new Trabalho();
-				trabalho.codigo = Integer.parseInt(vetLinha[0]);
-				trabalho.tipo = vetLinha[1];
-				trabalho.tema = vetLinha[2];
-				trabalho.area = vetLinha[3];
-				trabalho.subarea = vetLinha[4];
-				trabalho.integrantes = vetLinha[5];
+				trabalho.setCodigo(Integer.parseInt(vetLinha[0]));
+				trabalho.setTipo(vetLinha[1]);
+				trabalho.setTema(vetLinha[2]);
+				trabalho.setArea(vetLinha[3]);
+				trabalho.setSubarea(vetLinha[4]);
+				trabalho.setIntegrantes(vetLinha[5]);
 				tabelaEspalhamentoGrupoCodigo.adiciona(trabalho);
 				tabelaEspalhamentoGrupoSubarea.adiciona(trabalho);
 				linha = buffer.readLine();
@@ -448,5 +453,17 @@ public class TrabalhoController implements ActionListener {
 			isr.close();
 			fis.close();
 		}
+	}
+
+	@Override
+	public void buscar() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void limparBusca() throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }

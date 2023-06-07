@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import model.Orientacao;
 import model.Trabalho;
 
-public class OrientacaoController implements ActionListener{
+public class OrientacaoController implements ActionListener, IOperacoes{
 	
 	private JTextField tfOrientacaoBusca;
 	private JTextArea taOrientacaoLista;
@@ -76,8 +76,8 @@ public class OrientacaoController implements ActionListener{
 			e1.printStackTrace();
 		}
 	}
-
-	private void gravar() throws Exception {
+	@Override
+	public void gravar() throws Exception {
 		Orientacao orientacao = new Orientacao();
 		
 		String dia = tfDiaOrientacao.getText().toString();
@@ -90,12 +90,12 @@ public class OrientacaoController implements ActionListener{
 			JOptionPane.showMessageDialog(null, "Formato de data vazio ou inválido", "ERRO", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		orientacao.dia = Integer.parseInt(dia);
-		orientacao.mes = Integer.parseInt(mes);
-		orientacao.ano = Integer.parseInt(ano);
+		orientacao.setDia(Integer.parseInt(dia));
+		orientacao.setMes(Integer.parseInt(mes));
+		orientacao.setAno(Integer.parseInt(ano));
 		
-		orientacao.pontos = taPontosOrientacao.getText().toString();
-		if (orientacao.pontos.equals("")) {
+		orientacao.setPontos(taPontosOrientacao.getText().toString());
+		if (orientacao.getPontos().equals("")) {
 			JOptionPane.showMessageDialog(null, "Nenhum ponto foi definido para a orientação", "ERRO", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -105,10 +105,10 @@ public class OrientacaoController implements ActionListener{
 			return;
 		}
 		Trabalho trabalho = new Trabalho();
-		trabalho.codigo = Integer.parseInt(lblOrientacaoTrabalho.getText());
+		trabalho.setCodigo(Integer.parseInt(lblOrientacaoTrabalho.getText()));
 		TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho).orientacoes.push(orientacao);
 		
-		gravaOrientacao(orientacao.toString() + ";" + trabalho.codigo);
+		gravaOrientacao(orientacao.toString() + ";" + trabalho.getCodigo());
 		atualizaLista();
 		tfDiaOrientacao.setText("");
 		tfMesOrientacao.setText("");
@@ -136,21 +136,21 @@ public class OrientacaoController implements ActionListener{
 		pw.close();
 		fw.close();
 	}
-	
-	private void excluir() throws Exception {
+	@Override
+	public void excluir() throws Exception {
 		if (tfOrientacaoBusca.getText().equals("") || !tfOrientacaoBusca.getText().matches("[0-9]+")) {
 			JOptionPane.showMessageDialog(null, "Código inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
 		Trabalho trabalho = new Trabalho();
-		trabalho.codigo = Integer.parseInt(tfOrientacaoBusca.getText());
+		trabalho.setCodigo(Integer.parseInt(tfOrientacaoBusca.getText()));
 		trabalho = TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho);
 		
-		if (trabalho != null && !trabalho.orientacoes.isEmpty()) {
-			Orientacao orientacao = (Orientacao) trabalho.orientacoes.pop();
+		if (trabalho != null && !trabalho.getOrientacoes().isEmpty()) {
+			Orientacao orientacao = (Orientacao) trabalho.getOrientacoes().pop();
 			JOptionPane.showMessageDialog(null, "Última orientação removida com sucesso");
-			excluirOrientacao(trabalho.codigo, orientacao);
+			excluirOrientacao(trabalho.getCodigo(), orientacao);
 		} else {
 			JOptionPane.showMessageDialog(null, "Trabalho não existe ou não possui orientações", "ERRO!", JOptionPane.ERROR_MESSAGE);
 		}
@@ -174,7 +174,7 @@ public class OrientacaoController implements ActionListener{
 			String linha = bufferR.readLine();
 			while (linha != null) {
 				String[] vetLinha = linha.split(";");
-				if (codigo != Integer.parseInt(vetLinha[4]) || orientacao.dia != Integer.parseInt(vetLinha[0]) || orientacao.mes != Integer.parseInt(vetLinha[1]) || orientacao.ano != Integer.parseInt(vetLinha[2])) {
+				if (codigo != Integer.parseInt(vetLinha[4]) || orientacao.getDia() != Integer.parseInt(vetLinha[0]) || orientacao.getMes() != Integer.parseInt(vetLinha[1]) || orientacao.getAno() != Integer.parseInt(vetLinha[2])) {
 					bufferW.append(linha + System.getProperty("line.separator"));
 				} 
 				linha = bufferR.readLine();
@@ -197,25 +197,25 @@ public class OrientacaoController implements ActionListener{
 
 	private void adicionar() throws Exception {
 		Trabalho trabalho = new Trabalho();
-		trabalho.codigo = Integer.parseInt(tfTrabalhoOrientacao.getText());
+		trabalho.setCodigo(Integer.parseInt(tfTrabalhoOrientacao.getText()));
 		trabalho = TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho);
 		if (trabalho != null) {
-			lblOrientacaoTrabalho.setText(String.valueOf(trabalho.codigo));
+			lblOrientacaoTrabalho.setText(String.valueOf(trabalho.getCodigo()));
 			tfTrabalhoOrientacao.setText("");
 		} else {
 			JOptionPane.showMessageDialog(null, "Trabalho com o código informado não encontrado no sistema.");
 
 		}
 	}
-	
-	private void buscar() throws Exception {
+	@Override
+	public void buscar() throws Exception {
 		Trabalho trabalho = new Trabalho();
-		trabalho.codigo = Integer.parseInt(tfOrientacaoBusca.getText());
+		trabalho.setCodigo(Integer.parseInt(tfOrientacaoBusca.getText()));
 		trabalho = TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho);
 		if (trabalho != null) {
 			try {
-				Orientacao orientacaoMaisRecente = (Orientacao) trabalho.orientacoes.top();
-				taOrientacaoLista.setText("Trabalho #" + trabalho.codigo + " (" + orientacaoMaisRecente.dia + "/" + orientacaoMaisRecente.mes + "/" + orientacaoMaisRecente.ano + ") - " + orientacaoMaisRecente.pontos + System.getProperty("line.separator"));
+				Orientacao orientacaoMaisRecente = (Orientacao) trabalho.getOrientacoes().top();
+				taOrientacaoLista.setText("Trabalho #" + trabalho.getCodigo() + " (" + orientacaoMaisRecente.getDia() + "/" + orientacaoMaisRecente.getMes() + "/" + orientacaoMaisRecente.getAno() + ") - " + orientacaoMaisRecente.getPontos() + System.getProperty("line.separator"));
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, "Trabalho com o código informado não possui encontros");
 			}
@@ -238,16 +238,16 @@ public class OrientacaoController implements ActionListener{
 			while (linha != null) {
 				String[] vetLinha = linha.split(";");
 				Orientacao orientacao = new Orientacao();
-				orientacao.dia = Integer.parseInt(vetLinha[0]);
-				orientacao.mes = Integer.parseInt(vetLinha[1]);
-				orientacao.ano = Integer.parseInt(vetLinha[2]);
-				orientacao.pontos = vetLinha[3];
+				orientacao.setDia(Integer.parseInt(vetLinha[0]));
+				orientacao.setMes(Integer.parseInt(vetLinha[1]));
+				orientacao.setAno(Integer.parseInt(vetLinha[2]));
+				orientacao.setPontos(vetLinha[3]);
 				Trabalho trabalho = new Trabalho();
-				trabalho.codigo = Integer.parseInt(vetLinha[4]);
+				trabalho.setCodigo(Integer.parseInt(vetLinha[4]));
 				trabalho = TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho);
 				
 				if (trabalho != null) {
-					trabalho.orientacoes.push(orientacao);
+					trabalho.getOrientacoes().push(orientacao);
 				}
 				linha = buffer.readLine();
 			}
@@ -277,5 +277,11 @@ public class OrientacaoController implements ActionListener{
 			isr.close();
 			fis.close();
 		}
+	}
+
+	@Override
+	public void limparBusca() throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }
