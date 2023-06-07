@@ -281,7 +281,6 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			// Trocar aqui
 			Area area = new Area();
 			area.setNome(tfTrabalhoArea.getText());
 			area = AreaController.tabelaEspalhamentoArea.busca(area);
@@ -291,13 +290,13 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
-			trabalho.area = area.getNome();
+			trabalho.setArea(area.getNome());
 			
 			boolean subareaExiste = false;
 			int totalSubareas = area.getSubareas().size();
 			
 			for (int i = 0; i < totalSubareas; i++) {
-				if (area.getSubareas().get(i).equals(trabalho.subarea)) {
+				if (area.getSubareas().get(i).equals(trabalho.getSubarea())) {
 					subareaExiste = true;
 					break;
 				}
@@ -363,7 +362,6 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 					trabalho.setCodigo(Integer.parseInt(vetLinha[0]));
 					trabalho.setTipo(vetLinha[1]);
 					trabalho.setTema(vetLinha[2]);
-					// Trocar aqui
 					Area area = new Area();
 					area.setNome(vetLinha[3]);
 					area = AreaController.tabelaEspalhamentoArea.busca(area);
@@ -381,7 +379,7 @@ public class TrabalhoController implements ActionListener, IOperacoes {
 					int totalSubareas = area.getSubareas().size();
 					
 					for (int i = 0; i < totalSubareas; i++) {
-						if (area.getSubareas().get(i).equals(trabalho.subarea)) {
+						if (area.getSubareas().get(i).equals(trabalho.getSubarea())) {
 							subareaExiste = true;
 							break;
 						}
