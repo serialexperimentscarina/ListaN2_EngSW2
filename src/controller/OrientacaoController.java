@@ -106,7 +106,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		}
 		Trabalho trabalho = new Trabalho();
 		trabalho.setCodigo(Integer.parseInt(lblOrientacaoTrabalho.getText()));
-		TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho).orientacoes.push(orientacao);
+		TrabalhoController.tabelaEspalhamentoGrupoCodigo.busca(trabalho).getOrientacoes().push(orientacao);
 		
 		gravaOrientacao(orientacao.toString() + ";" + trabalho.getCodigo());
 		limparBusca();

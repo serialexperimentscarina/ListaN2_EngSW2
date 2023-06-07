@@ -11,7 +11,7 @@ public class Trabalho {
 	private String subarea;
 	private String integrantes;
 	
-	public PilhaObject orientacoes = new PilhaObject();
+	private PilhaObject orientacoes = new PilhaObject();
 	
 	@Override
 	public String toString() {
