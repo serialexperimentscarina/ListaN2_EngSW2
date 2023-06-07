@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 
 import model.Area;
 
-public class AreaController implements ActionListener{
+public class AreaController implements ActionListener, IOperacoes{
 	
 	private JTextField tfCodigoArea;
 	private JTextField tfNomeArea;
@@ -41,7 +41,6 @@ public class AreaController implements ActionListener{
 		
 		try {
 			populaTabela();
-			atualizaLista();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -61,14 +60,14 @@ public class AreaController implements ActionListener{
 				case "Remover":
 					remover();
 					break;
-				case "Buscar":
-					buscar();	
-					break;
 				case "Excluir":
 					excluir();	
 					break;
+				case "Buscar":
+					buscar();	
+					break;
 				case "Limpar Busca":
-					atualizaLista();	
+					limparBusca();	
 					break;
 				default:
 					break;
@@ -80,7 +79,8 @@ public class AreaController implements ActionListener{
 		
 	}
 
-	private void gravar() throws Exception {
+	@Override
+	public void gravar() throws Exception {
 		Area area = new Area();
 		if (!tfCodigoArea.getText().equals("") && tfCodigoArea.getText().matches("[0-9]+")) {
 			area.codigo = Integer.parseInt(tfCodigoArea.getText());
@@ -105,6 +105,7 @@ public class AreaController implements ActionListener{
 		if (!area.nome.equals("") && !area.descricao.equals("")) {
 			gravaArea(area.toString());
 			tabelaEspalhamentoArea.adiciona(area);
+			limparBusca();
 			
 			tfCodigoArea.setText("");
 			tfNomeArea.setText("");
@@ -135,11 +136,39 @@ public class AreaController implements ActionListener{
 		pw.flush();
 		pw.close();
 		fw.close();
-		
-		atualizaLista();
 	}
 	
-	private void excluir() throws Exception {
+	private void adicionar() {
+		String subarea = tfSubareas.getText();
+		if (!subarea.equals("")) {
+			taSubareas.append(subarea + System.getProperty("line.separator"));
+			tfSubareas.setText("");
+			
+			JOptionPane.showMessageDialog(null, "Subárea adicionada com sucesso.");
+		}
+	}
+	
+	private void remover() throws Exception {
+		String subarea = tfSubareas.getText();
+		if (!subarea.equals("") && taSubareas.getText().contains(subarea)) {
+			String[] subareas = taSubareas.getText().split(System.getProperty("line.separator"));
+			
+			StringBuffer buffer = new StringBuffer();
+			for (String sub : subareas) {
+				if (!sub.equals(subarea)) {
+					buffer.append(sub + System.getProperty("line.separator"));
+				}
+			}
+		
+			taSubareas.setText(buffer.toString());
+			JOptionPane.showMessageDialog(null, "Subárea removida com sucesso.");
+		} else {
+			JOptionPane.showMessageDialog(null, "Subárea não adicionada.", "ERRO!", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	@Override
+	public void excluir() throws Exception {
 		Area area = new Area();
 		area.nome = tfAreaBusca.getText();
 		
@@ -186,40 +215,12 @@ public class AreaController implements ActionListener{
 			
 			arq.delete();
 			novoArq.renameTo(arq);
-			atualizaLista();
+			limparBusca();
 		}
 	}
 
-	private void adicionar() {
-		String subarea = tfSubareas.getText();
-		if (!subarea.equals("")) {
-			taSubareas.append(subarea + System.getProperty("line.separator"));
-			tfSubareas.setText("");
-			
-			JOptionPane.showMessageDialog(null, "Subárea adicionada com sucesso.");
-		}
-	}
-	
-	private void remover() throws Exception {
-		String subarea = tfSubareas.getText();
-		if (!subarea.equals("") && taSubareas.getText().contains(subarea)) {
-			String[] subareas = taSubareas.getText().split(System.getProperty("line.separator"));
-			
-			StringBuffer buffer = new StringBuffer();
-			for (String sub : subareas) {
-				if (!sub.equals(subarea)) {
-					buffer.append(sub + System.getProperty("line.separator"));
-				}
-			}
-		
-			taSubareas.setText(buffer.toString());
-			JOptionPane.showMessageDialog(null, "Subárea removida com sucesso.");
-		} else {
-			JOptionPane.showMessageDialog(null, "Subárea não adicionada.", "ERRO!", JOptionPane.ERROR_MESSAGE);
-		}
-	}
-
-	private void buscar() throws Exception {
+	@Override
+	public void buscar() throws Exception {
 		Area area = new Area();
 		area.nome =tfAreaBusca.getText();
 		
@@ -241,7 +242,8 @@ public class AreaController implements ActionListener{
 		}
 	}
 
-	private void atualizaLista() throws Exception {
+	@Override
+	public void limparBusca() throws Exception {
 			taAreaLista.setText(tabelaEspalhamentoArea.lista());
 	}
 	
@@ -275,7 +277,7 @@ public class AreaController implements ActionListener{
 			isr.close();
 			fis.close();
 			
-			atualizaLista();
+			limparBusca();
 		}
 	}
 	
