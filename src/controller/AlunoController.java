@@ -74,12 +74,13 @@ public class AlunoController implements ActionListener, IOperacoes {
 	@Override
 	public void gravar() throws Exception {
 		Aluno aluno = new Aluno();
-		aluno.nome = tfAlunoNome.getText();
-		aluno.ra = tfAlunoRa.getText();
+		aluno.setNome(tfAlunoNome.getText());
+		aluno.setRa(tfAlunoRa.getText());
 		
-		if (!aluno.nome.equals("") && (!aluno.ra.equals("") && aluno.ra.matches("[0-9]+"))) {
+		if (!aluno.getNome().equals("") && (!aluno.getRa().equals("") && aluno.getRa().matches("[0-9]+"))) {
 			gravaAluno(aluno.toString());
 			tabelaEspalhamentoAluno.adiciona(aluno);
+			limparBusca();
 			
 			tfAlunoNome.setText("");
 			tfAlunoRa.setText("");
@@ -108,15 +109,14 @@ public class AlunoController implements ActionListener, IOperacoes {
 		pw.flush();
 		pw.close();
 		fw.close();
-		
 	}
 	
 	@Override
 	public void excluir() throws Exception {
 		Aluno aluno = new Aluno();
-		aluno.ra = tfAlunoBusca.getText();
+		aluno.setRa(tfAlunoBusca.getText());
 		
-		if (aluno.ra.equals("") || !aluno.ra.matches("[0-9]+")) {
+		if (aluno.getRa().equals("") || !aluno.getRa().matches("[0-9]+")) {
 			JOptionPane.showMessageDialog(null, "RA Inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
@@ -147,7 +147,7 @@ public class AlunoController implements ActionListener, IOperacoes {
 			String linha = bufferR.readLine();
 			while (linha != null) {
 				String[] vetLinha = linha.split(";");
-				if (!aluno.ra.equals(vetLinha[1])) {
+				if (!aluno.getRa().equals(vetLinha[1])) {
 					bufferW.append(linha + System.getProperty("line.separator"));
 					
 				}
@@ -171,16 +171,16 @@ public class AlunoController implements ActionListener, IOperacoes {
 	@Override
 	public void buscar() throws Exception {
 		Aluno aluno = new Aluno();
-		aluno.ra = tfAlunoBusca.getText();
+		aluno.setRa(tfAlunoBusca.getText());
 		
-		if (aluno.ra.equals("") || !aluno.ra.matches("[0-9]+")) {
+		if (aluno.getRa().equals("") || !aluno.getRa().matches("[0-9]+")) {
 			JOptionPane.showMessageDialog(null, "RA Inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		
 		aluno = tabelaEspalhamentoAluno.busca(aluno);
 		if (aluno != null) {
-			taAlunoLista.setText("Nome: " + aluno.nome + "; RA: " + aluno.ra);
+			taAlunoLista.setText("Nome: " + aluno.getNome() + "; RA: " + aluno.getRa());
 		} else {
 			JOptionPane.showMessageDialog(null, "Aluno não encontrado!", "ERRO!", JOptionPane.ERROR_MESSAGE);
 		}
@@ -204,8 +204,8 @@ public class AlunoController implements ActionListener, IOperacoes {
 			while (linha != null) {
 				String[] vetLinha = linha.split(";");
 				Aluno aluno = new Aluno();
-				aluno.nome = vetLinha[0];
-				aluno.ra = vetLinha[1];
+				aluno.setNome(vetLinha[0]);
+				aluno.setRa(vetLinha[1]);
 				tabelaEspalhamentoAluno.adiciona(aluno);
 				linha = buffer.readLine();
 			}
@@ -233,8 +233,8 @@ public class AlunoController implements ActionListener, IOperacoes {
 				// Checa se todos os campos do CSV estão corretos
 				if (vetLinha.length == 2 && !vetLinha[0].equals("") && (!vetLinha[1].equals("") && vetLinha[1].matches("[0-9]+"))) {
 					Aluno aluno = new Aluno();
-					aluno.nome = vetLinha[0];
-					aluno.ra = vetLinha[1];
+					aluno.setNome(vetLinha[0]);
+					aluno.setRa(vetLinha[1]);
 					listaAluno.addFirst(aluno);
 				} else {
 					JOptionPane.showMessageDialog(null, "Um ou mais campos inválidos passados por CSV, verifique seu arquivo e tente novamente", "ERRO!", JOptionPane.ERROR_MESSAGE);

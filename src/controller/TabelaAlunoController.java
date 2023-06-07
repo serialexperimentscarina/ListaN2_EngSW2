@@ -31,7 +31,7 @@ ListaObject[] tabelaDeEspalhamento;
 		
 		for (int i = 0; i < tamanho; i++) {
 			Aluno al = (Aluno) l.get(i);
-			if(al.ra.equals(aluno.ra)) {
+			if(al.getRa().equals(aluno.getRa())) {
 				return al;
 			}
 		}
@@ -45,7 +45,7 @@ ListaObject[] tabelaDeEspalhamento;
 		
 		for (int i = 0; i < tamanho; i++) {
 			Aluno al = (Aluno) l.get(i);
-			if(al.ra.equals(aluno.ra)) {
+			if(al.getRa().equals(aluno.getRa())) {
 				l.remove(i);
 				return true;
 			}
@@ -61,7 +61,7 @@ ListaObject[] tabelaDeEspalhamento;
 			
 			for (int j = 0; j < tamanho; j++) {
 				Aluno aluno = (Aluno) l.get(j);
-				alunos.append("Nome: " + aluno.nome + "; RA: " + aluno.ra + System.getProperty("line.separator"));
+				alunos.append("Nome: " + aluno.getNome() + "; RA: " + aluno.getRa() + System.getProperty("line.separator"));
 			}
 		}
 		

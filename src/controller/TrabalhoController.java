@@ -108,7 +108,7 @@ public class TrabalhoController implements ActionListener {
 			return;
 		}
 		
-		aluno.ra = tfBuscaIntegrante.getText();
+		aluno.setRa(tfBuscaIntegrante.getText());
 		aluno = AlunoController.tabelaEspalhamentoAluno.busca(aluno);
 		
 		
@@ -116,16 +116,16 @@ public class TrabalhoController implements ActionListener {
 			if (aluno != null) {
 				String integrantes = lblBuscaIntegrante.getText().toString();
 				
-				if(integrantes.contains(aluno.nome)) {
+				if(integrantes.contains(aluno.getNome())) {
 					JOptionPane.showMessageDialog(null, "Aluno já está adicionado neste trabalho.");
 					return;
 				}
 				
 				numIntegrantes++;
 				if (integrantes.equals("")) {
-					lblBuscaIntegrante.setText(aluno.nome);
+					lblBuscaIntegrante.setText(aluno.getNome());
 				} else {
-					lblBuscaIntegrante.setText(lblBuscaIntegrante.getText().toString() + ", " + aluno.nome);
+					lblBuscaIntegrante.setText(lblBuscaIntegrante.getText().toString() + ", " + aluno.getNome());
 				}
 				JOptionPane.showMessageDialog(null, "Aluno adicionado com sucesso.");
 				tfBuscaIntegrante.setText("");
@@ -144,16 +144,16 @@ public class TrabalhoController implements ActionListener {
 		}
 		
 		Aluno aluno = new Aluno();
-		aluno.ra = tfBuscaIntegrante.getText();
+		aluno.setRa(tfBuscaIntegrante.getText());
 		aluno = AlunoController.tabelaEspalhamentoAluno.busca(aluno);
 		String listaDeNomes = lblBuscaIntegrante.getText();
 		StringBuilder listaDeNomesAtualizada = new StringBuilder();
 
-		if (listaDeNomes.contains(aluno.nome)) {
+		if (listaDeNomes.contains(aluno.getNome())) {
 			String[] nomes = listaDeNomes.split(", ");
 
 			for (String nome : nomes) {
-				if (nome.equals(aluno.nome)) {
+				if (nome.equals(aluno.getNome())) {
 					JOptionPane.showMessageDialog(null, "Aluno removido com sucesso.");
 					numIntegrantes--;
 				} else {

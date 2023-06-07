@@ -66,7 +66,7 @@ public class Tela extends JFrame {
 	}
 
 	public Tela() {
-		setTitle("Sistema de TCC");
+		setTitle("Sistema de TCC - EngSWII");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		setResizable(false);
