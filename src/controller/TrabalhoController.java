@@ -57,7 +57,6 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 		try {
 			populaTabelas();
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Ocorreu um erro durante a execução do programa", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 
@@ -71,12 +70,10 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 				case "Gravar":
 					gravar();	
 					break;
-				case "Excluir":
+				case "Excluir por código":
 					excluir();
 					break;
 				case "Buscar por código":
-					buscar();	
-					break;
 				case "Buscar por subárea":
 					buscar();	
 					break;
@@ -86,16 +83,17 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 				case "Limpar Busca":
 					limparBusca();
 					break;
-				case "Adicionar":
+				case "Adicionar por RA":
 					adicionar();	
 					break;
-				case "Remover":
+				case "Remover por RA":
 					remover();	
 					break;
 				default:
 					break;
 			}
 		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, "Ocorreu um erro durante a execução do programa", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			e1.printStackTrace();
 		}
 

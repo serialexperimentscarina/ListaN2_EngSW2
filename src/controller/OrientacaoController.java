@@ -61,7 +61,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 				case "Buscar última":
 					buscar();	
 					break;
-				case "Adicionar":
+				case "Adicionar por código":
 					adicionar();
 					break;
 				case "Limpar Busca":
@@ -139,7 +139,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 	@Override
 	public void excluir() throws Exception {
 		if (tfOrientacaoBusca.getText().equals("") || !tfOrientacaoBusca.getText().matches("[0-9]+")) {
-			JOptionPane.showMessageDialog(null, "Código inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Código de trabalho inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		

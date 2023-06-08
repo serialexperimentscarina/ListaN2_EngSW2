@@ -48,10 +48,10 @@ public class AlunoController implements ActionListener, IOperacoes, IUpload {
 				case "Gravar":
 					gravar();	
 					break;
-				case "Excluir":
+				case "Excluir por RA":
 					excluir();	
 					break;
-				case "Buscar":
+				case "Buscar por RA":
 					buscar();	
 					break;
 				case "Limpar Busca":

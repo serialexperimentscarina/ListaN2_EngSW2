@@ -60,10 +60,10 @@ public class AreaController implements ActionListener, IOperacoes{
 				case "Remover":
 					remover();
 					break;
-				case "Excluir":
+				case "Excluir por nome":
 					excluir();	
 					break;
-				case "Buscar":
+				case "Buscar por nome":
 					buscar();	
 					break;
 				case "Limpar Busca":

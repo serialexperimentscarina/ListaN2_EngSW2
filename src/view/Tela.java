@@ -338,15 +338,15 @@ public class Tela extends JFrame {
 		formTrabalho.add(tfBuscaIntegrante);
 
 		final JLabel lblNomeIntegrantes = new JLabel("");
-		lblNomeIntegrantes.setBounds(50, 360, 500, 30);
+		lblNomeIntegrantes.setBounds(50, 360, 367, 30);
 		formTrabalho.add(lblNomeIntegrantes);
 		
         JButton btnAdicionaIntegrante = new JButton("Adicionar por RA");
-        btnAdicionaIntegrante.setBounds(407, 360, 113, 25);
+        btnAdicionaIntegrante.setBounds(375, 361, 130, 25);
         formTrabalho.add(btnAdicionaIntegrante);
         
         JButton btnRemoveIntegrante = new JButton("Remover por RA");
-        btnRemoveIntegrante.setBounds(530, 360, 115, 25);
+        btnRemoveIntegrante.setBounds(515, 361, 130, 25);
         formTrabalho.add(btnRemoveIntegrante);
         
 		JButton btnLimpaBuscaTrabalho = new JButton("Limpar Busca");
@@ -609,7 +609,7 @@ public class Tela extends JFrame {
 		
 		JButton btnAdicionarTrabalho = new JButton("Adicionar por código");
 		btnAdicionarTrabalho.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarTrabalho.setBounds(418, 75, 159, 23);
+		btnAdicionarTrabalho.setBounds(418, 75, 182, 23);
 		formOrientacao.add(btnAdicionarTrabalho);
 		
 		JLabel lblOrientaoAssociada = new JLabel("Orientação associada à:");
