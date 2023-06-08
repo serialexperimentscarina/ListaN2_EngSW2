@@ -52,8 +52,10 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 	
 		numIntegrantes = 0;
 		
+		// Pode ser necessário a organização por código ou subárea do conhecimento
 		tabelaEspalhamentoGrupoCodigo = new TabelaGrupoCodigoController();
 		tabelaEspalhamentoGrupoSubarea = new TabelaGrupoSubareaController();
+		
 		try {
 			populaTabelas();
 		} catch (Exception e) {
@@ -99,6 +101,7 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 
 	}
 	
+	// Adicionar aluno ao trabalho
 	private void adicionar() throws Exception {
 		Aluno aluno = new Aluno();
 		if (tfBuscaIntegrante.getText().toString().equals("") || !tfBuscaIntegrante.getText().toString().matches("[0-9]+")) {
@@ -139,6 +142,7 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 		}
 	}
 	
+	// Remover aluno do trabalho
 	private void remover() throws Exception {
 		if (tfBuscaIntegrante.getText().toString().equals("") || !tfBuscaIntegrante.getText().toString().matches("[0-9]+")) {
 			JOptionPane.showMessageDialog(null, "Número de RA do aluno inválido",
@@ -172,6 +176,8 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 					"ERRO!", JOptionPane.ERROR_MESSAGE);
 		}
 	}
+	
+	// Deletar trabalho gravado
 	@Override
 	public void excluir() throws Exception {
 		if (tfTrabalhoBusca.getText().equals("") || !tfTrabalhoBusca.getText().matches("[0-9]+")) {
@@ -229,16 +235,17 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 		}
 	}
 	
+	// Consultar por um trabalho
 	@Override
 	public void buscar() throws Exception {
 		if (cmd.equals("Buscar por código")) {
 			buscarCodigo();
 		} else if (cmd.equals("Buscar por subárea")) {
-			buscarArea();
+			buscarSubarea();
 		} 
 	}
 
-
+	// Consulta por código
 	private void buscarCodigo() throws Exception {
 		if (tfTrabalhoBusca.getText().equals("") || !tfTrabalhoBusca.getText().matches("[0-9]+")) {
 			JOptionPane.showMessageDialog(null, "Código inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
@@ -257,7 +264,8 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 		
 	}
 	
-	private void buscarArea() throws Exception {
+	// Consulta por subárea
+	private void buscarSubarea() throws Exception {
 		Trabalho trabalho = new Trabalho();
 		trabalho.setSubarea(tfTrabalhoBusca.getText());
 		
@@ -269,6 +277,8 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 		}
 		
 	}
+	
+	// Gravar novo trabalho
 	@Override
 	public void gravar() throws Exception {
 		if (numIntegrantes >= 1) {
@@ -346,6 +356,8 @@ public class TrabalhoController implements ActionListener, IOperacoes, IUpload {
 		fw.close();
 
 	}
+	
+	// Gravação de trabalhos por arquivo CSV
 	@Override
 	public void upload() throws Exception {
 		UploadController uploadCrtl = new UploadController();

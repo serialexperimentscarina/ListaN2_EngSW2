@@ -75,6 +75,8 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 			e1.printStackTrace();
 		}
 	}
+	
+	// Gravar nova orientação
 	@Override
 	public void gravar() throws Exception {
 		Orientacao orientacao = new Orientacao();
@@ -136,6 +138,8 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		pw.close();
 		fw.close();
 	}
+	
+	// Deletar última orientação gravada de um trabalho
 	@Override
 	public void excluir() throws Exception {
 		if (tfOrientacaoBusca.getText().equals("") || !tfOrientacaoBusca.getText().matches("[0-9]+")) {
@@ -197,7 +201,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		}
 	}
 
-
+	// Relacionar orientação com trabalho
 	private void adicionar() throws Exception {
 		if (tfTrabalhoOrientacao.getText().equals("") || !tfTrabalhoOrientacao.getText().matches("[0-9]+")) {
 			JOptionPane.showMessageDialog(null, "Código de trabalho inválido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
@@ -216,6 +220,8 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 
 		}
 	}
+	
+	// Consultar pela última orientação de um trabalho
 	@Override
 	public void buscar() throws Exception {
 		if (tfOrientacaoBusca.getText().equals("") || !tfOrientacaoBusca.getText().matches("[0-9]+")) {
@@ -241,6 +247,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		}
 	}
 
+	// Carrega a pilha de orientações de cada trabalho
 	private void InicializaPilhas() throws Exception {
 		String path = (System.getProperty("user.home") + File.separator + "SistemaTCC");
 		File arq = new File(path, "orientacoes.csv");
@@ -275,7 +282,7 @@ public class OrientacaoController implements ActionListener, IOperacoes{
 		limparBusca();
 	}
 	
-
+	// Limpar consulta
 	@Override
 	public void limparBusca() throws Exception {
 		String path = (System.getProperty("user.home") + File.separator + "SistemaTCC");

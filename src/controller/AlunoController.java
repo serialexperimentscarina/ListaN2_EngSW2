@@ -70,6 +70,7 @@ public class AlunoController implements ActionListener, IOperacoes, IUpload {
 		
 	}
 
+	// Gravar novo aluno
 	@Override
 	public void gravar() throws Exception {
 		Aluno aluno = new Aluno();
@@ -110,6 +111,7 @@ public class AlunoController implements ActionListener, IOperacoes, IUpload {
 		fw.close();
 	}
 	
+	// Deletar aluno gravado
 	@Override
 	public void excluir() throws Exception {
 		Aluno aluno = new Aluno();
@@ -167,6 +169,7 @@ public class AlunoController implements ActionListener, IOperacoes, IUpload {
 		}
 	}
 	
+	// Consultar por um aluno
 	@Override
 	public void buscar() throws Exception {
 		Aluno aluno = new Aluno();
@@ -185,6 +188,7 @@ public class AlunoController implements ActionListener, IOperacoes, IUpload {
 		}
 	}
 	
+	// Limpar consulta
 	@Override
 	public void limparBusca() throws Exception {
 		taAlunoLista.setText(tabelaEspalhamentoAluno.lista());
@@ -214,6 +218,8 @@ public class AlunoController implements ActionListener, IOperacoes, IUpload {
 		}
 		limparBusca();
 	}
+	
+	// Gravação de alunos por arquivo CSV
 	@Override
 	public void upload() throws Exception {
 		UploadController uploadCrtl = new UploadController();
@@ -229,7 +235,6 @@ public class AlunoController implements ActionListener, IOperacoes, IUpload {
 			while (linha != null) {
 				String[] vetLinha = linha.split(";");
 				
-				// Checa se todos os campos do CSV estão corretos
 				if (vetLinha.length == 2 && !vetLinha[0].equals("") && (!vetLinha[1].equals("") && vetLinha[1].matches("[0-9]+"))) {
 					Aluno aluno = new Aluno();
 					aluno.setNome(vetLinha[0]);
@@ -245,7 +250,6 @@ public class AlunoController implements ActionListener, IOperacoes, IUpload {
 			InStrReader.close();
 			fInStr.close();
 			
-			//Se todos os alunos passados forem válidos, adiciona eles ao sistema
 			while (!listaAluno.isEmpty()) {
 				Aluno aluno = (Aluno) listaAluno.get(0);
 				gravaAluno(aluno.toString());

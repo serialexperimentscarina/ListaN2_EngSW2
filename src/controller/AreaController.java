@@ -79,6 +79,7 @@ public class AreaController implements ActionListener, IOperacoes{
 		
 	}
 
+	// Gravar nova área
 	@Override
 	public void gravar() throws Exception {
 		Area area = new Area();
@@ -138,6 +139,7 @@ public class AreaController implements ActionListener, IOperacoes{
 		fw.close();
 	}
 	
+	// Adicionar subárea
 	private void adicionar() {
 		String subarea = tfSubareas.getText();
 		if (!subarea.equals("")) {
@@ -148,6 +150,7 @@ public class AreaController implements ActionListener, IOperacoes{
 		}
 	}
 	
+	// Remover subárea
 	private void remover() throws Exception {
 		String subarea = tfSubareas.getText();
 		if (!subarea.equals("") && taSubareas.getText().contains(subarea)) {
@@ -167,6 +170,7 @@ public class AreaController implements ActionListener, IOperacoes{
 		}
 	}
 	
+	// Deletar área gravada
 	@Override
 	public void excluir() throws Exception {
 		Area area = new Area();
@@ -219,6 +223,7 @@ public class AreaController implements ActionListener, IOperacoes{
 		}
 	}
 
+	// Consultar por uma área
 	@Override
 	public void buscar() throws Exception {
 		Area area = new Area();
@@ -242,6 +247,7 @@ public class AreaController implements ActionListener, IOperacoes{
 		}
 	}
 
+	// Limpar consulta 
 	@Override
 	public void limparBusca() throws Exception {
 			taAreaLista.setText(tabelaEspalhamentoArea.lista());

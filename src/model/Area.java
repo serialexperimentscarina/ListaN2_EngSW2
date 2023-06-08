@@ -9,6 +9,7 @@ public class Area {
 	private String descricao;
 	private ListaStrings subareas = new ListaStrings();
 	
+	// Getters e setters
 	public int getCodigo() {
 		return codigo;
 	}
@@ -53,6 +54,7 @@ public class Area {
 	}
 
 
+	// toString para gravação em arquivo
 	@Override
 	public String toString() {
 		StringBuffer stringSubareas = new StringBuffer("\"");
@@ -69,6 +71,7 @@ public class Area {
 	}
 
 	
+	// Código hash
 	@Override
 	public int hashCode() {
 		return (nome.toLowerCase().charAt(0)) % 10;

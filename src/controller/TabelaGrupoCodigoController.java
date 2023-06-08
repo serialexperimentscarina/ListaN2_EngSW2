@@ -15,6 +15,7 @@ public class TabelaGrupoCodigoController {
 		}
 	}
 	
+	// Adiciona trabalho na tabela
 	public void adiciona(Trabalho trabalho) throws Exception {
 		int hash = trabalho.hashCodigo();
 		ListaObject l = tabelaDeEspalhamento[hash];
@@ -22,6 +23,7 @@ public class TabelaGrupoCodigoController {
 		l.addFirst(trabalho);
 	}
 
+	// Consulta trabalho na tabela
 	public Trabalho busca(Trabalho trabalho) throws Exception {
 		int hash = trabalho.hashCodigo();
 		ListaObject l = tabelaDeEspalhamento[hash];
@@ -36,6 +38,7 @@ public class TabelaGrupoCodigoController {
 		return null;
 	}
 	
+	// Deleta aluno da tabela
 	public boolean remove(Trabalho trabalho) throws Exception {
 		int hash = trabalho.hashCodigo();
 		ListaObject l = tabelaDeEspalhamento[hash];
@@ -51,6 +54,7 @@ public class TabelaGrupoCodigoController {
 		return false;
 	}
 	
+	// Lista todos os trabalhos presentes na tabela
 	public String lista() throws Exception {
 		StringBuffer trabalhos = new StringBuffer("");
 		for (int i = 0; i < 10; i++) {

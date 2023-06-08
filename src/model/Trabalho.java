@@ -11,14 +11,16 @@ public class Trabalho {
 	private String subarea;
 	private String integrantes;
 	
+	// Cada trabalho possui uma pilha de suas orientações, entende-se que a orientação mais importante é sempre a última (mais recente).
 	private PilhaObject orientacoes = new PilhaObject();
 	
+	// toString para gravação em arquivo
 	@Override
 	public String toString() {
 		return (codigo + ";" + tipo + ";" + tema + ";" + area + ";" + subarea + ";" + integrantes);
 	}
 
-	
+	// Código hash
 	public int hashCodigo() {
 		return (codigo % 10);
 	}
@@ -27,7 +29,7 @@ public class Trabalho {
 		return (subarea.toLowerCase().charAt(0) - 97);
 	}
 
-
+	// Getters e setters
 	public int getCodigo() {
 		return codigo;
 	}

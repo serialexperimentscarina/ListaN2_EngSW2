@@ -15,6 +15,7 @@ public class TabelaGrupoSubareaController {
 		}
 	}
 	
+	// Adiciona trabalho na tabela
 	public void adiciona(Trabalho trabalho) throws Exception {
 		int hash = trabalho.hashSubarea();
 		ListaObject l = tabelaDeEspalhamento[hash];
@@ -22,6 +23,7 @@ public class TabelaGrupoSubareaController {
 		l.addFirst(trabalho);
 	}
 
+	// Consulta trabalho na tabela
 	public String busca(Trabalho trabalho) throws Exception {
 		int hash = trabalho.hashSubarea();
 		ListaObject l = tabelaDeEspalhamento[hash];

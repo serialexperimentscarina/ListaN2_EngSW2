@@ -15,6 +15,7 @@ ListaObject[] tabelaDeEspalhamento;
 		}
 	}
 	
+	// Adiciona área na tabela
 	public void adiciona(Area area) throws Exception {
 		int hash = area.hashCode();
 		ListaObject l = tabelaDeEspalhamento[hash];
@@ -22,6 +23,7 @@ ListaObject[] tabelaDeEspalhamento;
 		l.addFirst(area);
 	}
 
+	// Busca área na tabela
 	public Area busca(Area area) throws Exception {
 		int hash = area.hashCode();
 		ListaObject l = tabelaDeEspalhamento[hash];
@@ -36,6 +38,7 @@ ListaObject[] tabelaDeEspalhamento;
 		return null;
 	}
 	
+	// Deleta área da tabela
 	public boolean remove(Area area) throws Exception {
 		int hash = area.hashCode();
 		ListaObject l = tabelaDeEspalhamento[hash];
@@ -51,6 +54,7 @@ ListaObject[] tabelaDeEspalhamento;
 		return false;
 	}
 	
+	// Lista todas as áreas presentes na tabela
 	public String lista() throws Exception {
 		StringBuffer areas = new StringBuffer("");
 		for (int i = 0; i < 10; i++) {

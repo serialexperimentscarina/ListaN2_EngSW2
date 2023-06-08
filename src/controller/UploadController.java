@@ -6,7 +6,8 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class UploadController {
-	
+
+	// Método comúm para upload de arquivos CSV
 	public File uploadArquivo() {
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Arquivos separados por vírgula (.CSV)", "csv");
 		String diretorio = (System.getProperty("user.home") + "/Desktop");

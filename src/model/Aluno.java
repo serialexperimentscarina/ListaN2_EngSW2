@@ -6,7 +6,7 @@ public class Aluno {
 	private String ra;
 	
 	
-	
+	// Getters e setters
 	public String getNome() {
 		return nome;
 	}
@@ -23,11 +23,13 @@ public class Aluno {
 		this.ra = ra;
 	}
 
+	// toString para gravação em arquivo
 	@Override
 	public String toString() {
 		return (nome + ";" + ra);
 	}
 	
+	// Código hash
 	@Override
 	public int hashCode() {
 		return Integer.parseInt(ra.substring(ra.length() - 1));

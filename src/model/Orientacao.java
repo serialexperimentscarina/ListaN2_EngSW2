@@ -7,11 +7,13 @@ public class Orientacao {
 	private int ano;
 	private String pontos;
 	
+	// toString para gravação em arquivo
 	@Override
 	public String toString() {
 		return (dia + ";" + mes + ";" + ano + ";" + pontos);
 	}
 
+	// Getters e setters
 	public int getDia() {
 		return dia;
 	}
