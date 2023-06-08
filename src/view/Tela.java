@@ -127,7 +127,7 @@ public class Tela extends JFrame {
 		tfAlunoBusca.setBounds(292, 9, 294, 30);
 		listAluno.add(tfAlunoBusca);
 		
-		JButton btnBuscaAluno = new JButton("Buscar");
+		JButton btnBuscaAluno = new JButton("Buscar por RA");
 		btnBuscaAluno.setToolTipText("Pesquisar por RA");
 		btnBuscaAluno.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscaAluno.setBounds(596, 0, 140, 23);
@@ -138,16 +138,16 @@ public class Tela extends JFrame {
 		lblNovoAluno.setBounds(10, 11, 291, 23);
 		formAluno.add(lblNovoAluno);
 		
-		JButton btnCancelaAluno = new JButton("Cancelar");
-		btnCancelaAluno.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCancelaAluno.setBounds(460, 477, 140, 23);
-		btnCancelaAluno.addActionListener(new ActionListener() {
+		JButton btnRetornarAluno = new JButton("Retornar");
+		btnRetornarAluno.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRetornarAluno.setBounds(460, 477, 140, 23);
+		btnRetornarAluno.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mudarAba(paneAluno, listAluno);
 			}
 		});
-		formAluno.add(btnCancelaAluno);
+		formAluno.add(btnRetornarAluno);
 		
 		JButton btnGravarAluno = new JButton("Gravar");
 		btnGravarAluno.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -186,8 +186,8 @@ public class Tela extends JFrame {
 		btnLimpaBuscaAluno.setBounds(142, 13, 140, 23);
 		listAluno.add(btnLimpaBuscaAluno);
 		
-		JButton btnExcluirAluno = new JButton("Excluir");
-		btnExcluirAluno.setToolTipText("Pesquisar por RA");
+		JButton btnExcluirAluno = new JButton("Excluir por RA");
+		btnExcluirAluno.setToolTipText("Deletar por RA");
 		btnExcluirAluno.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnExcluirAluno.setBounds(596, 31, 140, 23);
 		listAluno.add(btnExcluirAluno);
@@ -225,7 +225,7 @@ public class Tela extends JFrame {
 		listTrabalho.add(tfTrabalhoBusca);
 		
 		JButton btnBuscaCodigoTrabalho = new JButton("Buscar por código");
-		btnBuscaCodigoTrabalho.setToolTipText("Pesquisar por código do trabalho");
+		btnBuscaCodigoTrabalho.setToolTipText("Pesquisar por código");
 		btnBuscaCodigoTrabalho.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscaCodigoTrabalho.setBounds(591, 0, 153, 23);
 		listTrabalho.add(btnBuscaCodigoTrabalho);
@@ -236,6 +236,7 @@ public class Tela extends JFrame {
 		listTrabalho.add(lblTrabalhos);
 		
 		JButton btnNovoTrabalho = new JButton("Novo Trabalho");
+		btnNovoTrabalho.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNovoTrabalho.setBounds(609, 477, 140, 23);
 		btnNovoTrabalho.addActionListener(new ActionListener() {
 			@Override
@@ -246,15 +247,16 @@ public class Tela extends JFrame {
 		listTrabalho.add(btnNovoTrabalho);
 		
 		
-		JButton btnCancelaTrabalho = new JButton("Cancelar");
-		btnCancelaTrabalho.setBounds(460, 477, 140, 23);
-		btnCancelaTrabalho.addActionListener(new ActionListener() {
+		JButton btnRetornarTrabalho = new JButton("Retornar");
+		btnRetornarTrabalho.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRetornarTrabalho.setBounds(460, 477, 140, 23);
+		btnRetornarTrabalho.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mudarAba(paneTrabalho, listTrabalho);
 			}
 		});
-		formTrabalho.add(btnCancelaTrabalho);
+		formTrabalho.add(btnRetornarTrabalho);
 		
 		JLabel lblNovoTrabalho = new JLabel("Novo Trabalho");
 		lblNovoTrabalho.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -339,12 +341,12 @@ public class Tela extends JFrame {
 		lblNomeIntegrantes.setBounds(50, 360, 500, 30);
 		formTrabalho.add(lblNomeIntegrantes);
 		
-        JButton btnAdicionaIntegrante = new JButton("Adicionar");
-        btnAdicionaIntegrante.setBounds(420, 360, 100, 25);
+        JButton btnAdicionaIntegrante = new JButton("Adicionar por RA");
+        btnAdicionaIntegrante.setBounds(407, 360, 113, 25);
         formTrabalho.add(btnAdicionaIntegrante);
         
-        JButton btnRemoveIntegrante = new JButton("Remover");
-        btnRemoveIntegrante.setBounds(545, 360, 100, 25);
+        JButton btnRemoveIntegrante = new JButton("Remover por RA");
+        btnRemoveIntegrante.setBounds(530, 360, 115, 25);
         formTrabalho.add(btnRemoveIntegrante);
         
 		JButton btnLimpaBuscaTrabalho = new JButton("Limpar Busca");
@@ -353,13 +355,13 @@ public class Tela extends JFrame {
 		listTrabalho.add(btnLimpaBuscaTrabalho);
 		
 		JButton btnBuscaSubareaTrabalho = new JButton("Buscar por subárea");
-		btnBuscaSubareaTrabalho.setToolTipText("Pesquisar por código do área");
+		btnBuscaSubareaTrabalho.setToolTipText("Pesquisar por subárea");
 		btnBuscaSubareaTrabalho.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscaSubareaTrabalho.setBounds(591, 25, 153, 23);
 		listTrabalho.add(btnBuscaSubareaTrabalho);
 		
-		JButton btnExcluirTrabalho = new JButton("Excluir");
-		btnExcluirTrabalho.setToolTipText("Excluir trabalho");
+		JButton btnExcluirTrabalho = new JButton("Excluir por código");
+		btnExcluirTrabalho.setToolTipText("Deletar por código");
 		btnExcluirTrabalho.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnExcluirTrabalho.setBounds(591, 50, 153, 23);
 		listTrabalho.add(btnExcluirTrabalho);
@@ -395,8 +397,8 @@ public class Tela extends JFrame {
 		tfAreaBusca.setBounds(291, 11, 294, 30);
 		listArea.add(tfAreaBusca);
 		
-		JButton btnBuscaArea = new JButton("Buscar");
-		btnBuscaArea.setToolTipText("Pesquisar por nome de área");
+		JButton btnBuscaArea = new JButton("Buscar por nome");
+		btnBuscaArea.setToolTipText("Pesquisar por nome");
 		btnBuscaArea.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscaArea.setBounds(595, 0, 140, 23);
 		listArea.add(btnBuscaArea);
@@ -406,6 +408,7 @@ public class Tela extends JFrame {
 		listArea.add(scrollPaneArea);
 		
 		JTextArea taAreaLista = new JTextArea();
+		taAreaLista.setEditable(false);
 		scrollPaneArea.setViewportView(taAreaLista);
 		
 		JButton btnNovarea = new JButton("Nova Área");
@@ -424,16 +427,16 @@ public class Tela extends JFrame {
 		lblNovaArea.setBounds(10, 11, 117, 23);
 		formArea.add(lblNovaArea);
 		
-		JButton btnCancelaArea = new JButton("Cancela");
-		btnCancelaArea.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCancelaArea.setBounds(460, 477, 140, 23);
-		btnCancelaArea.addActionListener(new ActionListener() {
+		JButton btnRetornaArea = new JButton("Retornar");
+		btnRetornaArea.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRetornaArea.setBounds(460, 477, 140, 23);
+		btnRetornaArea.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mudarAba(paneArea, listArea);
 			}
 		});
-		formArea.add(btnCancelaArea);
+		formArea.add(btnRetornaArea);
 		
 		JLabel lblCodigoArea = new JLabel("Código: ");
 		lblCodigoArea.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -500,8 +503,8 @@ public class Tela extends JFrame {
 		btnLimpaBuscaArea.setBounds(141, 15, 140, 23);
 		listArea.add(btnLimpaBuscaArea);
 		
-		JButton btnExcluirArea = new JButton("Excluir");
-		btnExcluirArea.setToolTipText("Excluir Área");
+		JButton btnExcluirArea = new JButton("Excluir por nome");
+		btnExcluirArea.setToolTipText("Deletar por nome");
 		btnExcluirArea.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnExcluirArea.setBounds(595, 29, 140, 23);
 		listArea.add(btnExcluirArea);
@@ -567,7 +570,7 @@ public class Tela extends JFrame {
 		listOrientacao.add(tfOrientacaoBusca);
 		
 		JButton btnBuscaOrientacao = new JButton("Buscar última");
-		btnBuscaOrientacao.setToolTipText("Pesquisar por nome de área");
+		btnBuscaOrientacao.setToolTipText("Pesquisar por código do trabalho");
 		btnBuscaOrientacao.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnBuscaOrientacao.setBounds(594, 0, 140, 23);
 		listOrientacao.add(btnBuscaOrientacao);
@@ -577,16 +580,16 @@ public class Tela extends JFrame {
 		lblNovaOrientacao.setBounds(10, 11, 248, 23);
 		formOrientacao.add(lblNovaOrientacao);
 		
-		JButton btnCancelaOrientacao = new JButton("Cancela");
-		btnCancelaOrientacao.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCancelaOrientacao.setBounds(460, 477, 140, 23);
-		btnCancelaOrientacao.addActionListener(new ActionListener() {
+		JButton btnRetornarOrientacao = new JButton("Retornar");
+		btnRetornarOrientacao.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnRetornarOrientacao.setBounds(460, 477, 140, 23);
+		btnRetornarOrientacao.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				mudarAba(paneOrientacao, listOrientacao);
 			}
 		});
-		formOrientacao.add(btnCancelaOrientacao);
+		formOrientacao.add(btnRetornarOrientacao);
 		
 		JButton btnGravaOrientacao = new JButton("Gravar");
 		btnGravaOrientacao.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -604,9 +607,9 @@ public class Tela extends JFrame {
 		tfTrabalhoOrientacao.setBounds(160, 70, 248, 30);
 		formOrientacao.add(tfTrabalhoOrientacao);
 		
-		JButton btnAdicionarTrabalho = new JButton("Adicionar");
+		JButton btnAdicionarTrabalho = new JButton("Adicionar por código");
 		btnAdicionarTrabalho.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnAdicionarTrabalho.setBounds(418, 75, 140, 23);
+		btnAdicionarTrabalho.setBounds(418, 75, 159, 23);
 		formOrientacao.add(btnAdicionarTrabalho);
 		
 		JLabel lblOrientaoAssociada = new JLabel("Orientação associada à:");
@@ -662,7 +665,7 @@ public class Tela extends JFrame {
 		formOrientacao.add(lblOrientacaoTrabalho);
 		
 		JButton btnExcluirOrientacao = new JButton("Excluir última");
-		btnExcluirOrientacao.setToolTipText("Pesquisar por nome de área");
+		btnExcluirOrientacao.setToolTipText("Deletar por código do trabalho");
 		btnExcluirOrientacao.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnExcluirOrientacao.setBounds(594, 31, 140, 23);
 		listOrientacao.add(btnExcluirOrientacao);
